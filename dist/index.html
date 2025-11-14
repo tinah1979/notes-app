@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div id="app" class="container py-5">
+
+    <h1 class="mb-4 text-center"> My Notes App</h1>
+
+<div class="mb-3">
+  <input v-model="newNote" type="text" class="form-control" placeholder="Enter your note here" />
+</div>
+
+<div class="mb-3 text-end">
+  <button @click="addNote" class="btn btn-primary">Add Note</button>
+</div>
+
+<ul class="list-group">
+  <li v-for="(note, index) in notes" :key="index" class="list-group-item d-flex justify-content-between align-items-center">
+    {{ note }}
+    <button @click="deleteNote(index)" class="btn btn-sm btn-danger">Delete</button>
+  </li>
+</ul>
+  </div>
+
+  
+    <script>
+  const { createApp, ref } = Vue
+
+  createApp({
+    setup() {
+      const newNote = ref('')
+      const notes = ref([])
+
+      const addNote = () => {
+        if (newNote.value.trim() !== '') {
+          notes.value.push(newNote.value.trim())
+          newNote.value = '' // Clear input
+        }
+      }
+
+      const deleteNote = (index) => {
+        notes.value.splice(index, 1)
+      }
+
+      return { newNote, notes, addNote, deleteNote }
+    }
+  }).mount('#app')
+
+</script>
+  </script>
+
+
+    
+</body>
+</html>
